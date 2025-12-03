@@ -93,7 +93,7 @@ $rol_usuario = $esta_autenticado ? $_SESSION['fk_rol'] : 0;
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn btn-outline-light px-3 ms-2" href="registro.php" style="border-radius: 8px;">
+                            <a class="nav-link nav-link-register" href="registro.php">
                                 <i class="bi bi-person-plus"></i> Registrarse
                             </a>
                         </li>

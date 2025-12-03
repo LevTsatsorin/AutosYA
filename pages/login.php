@@ -14,7 +14,7 @@ if (isset($_SESSION['id_usuario'])) {
 
 <div class="container my-5">
     <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-5">
+        <div class="col-md-8 col-lg-6">
             <div class="card shadow-lg" style="border: none;">
                 <div class="card-body p-5">
                     <h2 class="card-title text-center mb-4">

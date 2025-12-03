@@ -534,3 +534,54 @@ footer a:hover {
   background: var(--yale-blue-dark);
   border-color: var(--yale-blue-dark);
 }
+
+.nav-link-register {
+  border-radius: 8px;
+}
+
+@media (min-width: 992px) {
+  .nav-link-register {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 0.5rem 1rem !important;
+    margin-left: 0.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .nav-link-register:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+@media (max-width: 991px) {
+  .nav-link-register {
+    border: none;
+    margin-left: 0;
+    padding: 0.5rem 1rem !important;
+  }
+}
+
+.nav-link-register {
+  border-radius: 8px;
+}
+
+@media (min-width: 992px) {
+  .nav-link-register {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 0.5rem 1rem !important;
+    margin-left: 0.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .nav-link-register:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+@media (max-width: 991px) {
+  .nav-link-register {
+    border: none;
+    margin-left: 0;
+  }
+}

@@ -1,3 +1,67 @@
+/* Tarjeta de información del usuario */
+.user-info-card {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.user-info-card::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  right: -10px;
+  width: 180px;
+  height: 180px;
+  background-image: url("/AutosYA/assets/sport_car.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.user-info-card .stats-title {
+  color: #667eea !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.user-info-card .stats-icon-circle {
+  background-color: rgba(102, 126, 234, 0.2) !important;
+}
+
+.user-info-card .stats-icon-circle i {
+  color: #667eea !important;
+}
+
+.user-card-title {
+  color: #667eea;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+.user-info-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  padding: 0.85rem;
+  margin: 0.4rem 0;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: #4a5568;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+
+.user-info-item i {
+  font-size: 1.2rem;
+  color: #667eea;
+}
+
+/* Tarjetas de estadísticas con gradientes */
 .stats-card-purple {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
@@ -37,4 +101,28 @@
   .stats-number {
     font-size: 3rem;
   }
+}
+
+/* Tabla de reservas */
+.reservas-card .card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+}
+
+.reservas-card .card-header h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.reservas-card thead th {
+  border: none;
+  padding: 1rem;
+  font-weight: 600;
+  background-color: #f8f9fa;
+}
+
+.reservas-card tbody td {
+  padding: 1rem;
+  vertical-align: middle;
 }
