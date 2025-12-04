@@ -222,11 +222,33 @@ footer {
   font-weight: 500;
   padding: 0.5rem 1rem !important;
   border-radius: 8px;
+  margin: 0 0.15rem;
 }
 
 .nav-link:hover {
   color: white !important;
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link.active {
+  color: white !important;
+  background-color: rgba(255, 255, 255, 0.15);
+  font-weight: 600;
+  position: relative;
+}
+
+@media (min-width: 992px) {
+  .nav-link.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+    background: var(--steel-blue-light);
+    border-radius: 2px;
+  }
 }
 
 /* Navbar Auth Buttons */

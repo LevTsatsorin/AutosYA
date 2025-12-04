@@ -10,6 +10,10 @@ if (session_status() === PHP_SESSION_NONE) {
 $esta_autenticado = isset($_SESSION['id_usuario']);
 $nombre_usuario = $esta_autenticado ? $_SESSION['nombre'] : '';
 $rol_usuario = $esta_autenticado ? $_SESSION['fk_rol'] : 0;
+
+// Determinar la página
+$current_page = basename($_SERVER['PHP_SELF']);
+$current_dir = basename(dirname($_SERVER['PHP_SELF']));
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -41,7 +45,7 @@ $rol_usuario = $esta_autenticado ? $_SESSION['fk_rol'] : 0;
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/AutosYA/pages/inicio.php">
+                        <a class="nav-link <?php echo ($current_page === 'inicio.php') ? 'active' : ''; ?>" href="/AutosYA/pages/inicio.php">
                             <i class="bi bi-house-fill"></i> Inicio
                         </a>
                     </li>
@@ -49,29 +53,29 @@ $rol_usuario = $esta_autenticado ? $_SESSION['fk_rol'] : 0;
                     <?php if ($esta_autenticado && $rol_usuario == 1): ?>
                         <!-- Links para Administrador -->
                         <li class="nav-item">
-                            <a class="nav-link" href="/AutosYA/admin/index.php">
+                            <a class="nav-link <?php echo ($current_dir === 'admin' && $current_page === 'index.php') ? 'active' : ''; ?>" href="/AutosYA/admin/index.php">
                                 <i class="bi bi-speedometer2"></i> Panel Admin
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/AutosYA/admin/gestion_autos.php">
+                            <a class="nav-link <?php echo ($current_page === 'gestion_autos.php') ? 'active' : ''; ?>" href="/AutosYA/admin/gestion_autos.php">
                                 <i class="bi bi-car-front-fill"></i> Gestión de Autos
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/AutosYA/admin/gestion_usuarios.php">
+                            <a class="nav-link <?php echo ($current_page === 'gestion_usuarios.php') ? 'active' : ''; ?>" href="/AutosYA/admin/gestion_usuarios.php">
                                 <i class="bi bi-people-fill"></i> Gestión de Usuarios
                             </a>
                         </li>
                     <?php elseif ($esta_autenticado && $rol_usuario == 2): ?>
                         <!-- Links para Cliente -->
                         <li class="nav-item">
-                            <a class="nav-link" href="/AutosYA/cliente/perfil.php">
+                            <a class="nav-link <?php echo ($current_page === 'perfil.php') ? 'active' : ''; ?>" href="/AutosYA/cliente/perfil.php">
                                 <i class="bi bi-person-circle"></i> Mi Perfil
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/AutosYA/pages/mis_reservas.php">
+                            <a class="nav-link <?php echo ($current_page === 'mis_reservas.php') ? 'active' : ''; ?>" href="/AutosYA/pages/mis_reservas.php">
                                 <i class="bi bi-calendar-check-fill"></i> Mis Reservas
                             </a>
                         </li>
