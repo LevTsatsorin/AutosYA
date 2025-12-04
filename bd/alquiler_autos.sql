@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `autos` (
   `patente` VARCHAR(15) NOT NULL,
   `precio_por_dia` DECIMAL(10,2) NOT NULL,
   `estado` VARCHAR(20) NOT NULL DEFAULT 'disponible',
+  `imagen` VARCHAR(100) NULL DEFAULT NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_auto`))
 ENGINE = InnoDB
@@ -121,6 +122,60 @@ SHOW WARNINGS;
 -- -----------------------------------------------------
 INSERT INTO `roles` (`id_rol`, `nombre`) VALUES (1, 'admin');
 INSERT INTO `roles` (`id_rol`, `nombre`) VALUES (2, 'cliente');
+
+-- -----------------------------------------------------
+-- Initial Data: Usuarios
+-- -----------------------------------------------------
+INSERT INTO `usuarios` (`id_usuario`, `nombre`, `correo`, `clave`, `fk_rol`, `created_at`) VALUES
+(1, 'Lev Tsatsorin', 'lev.tsatsorin@gmail.com', '$2y$10$gwiw6O.sssBcUKN8rnVm5.El8/8YQkK41OG2SMvof4YuygTVGRhBG', 2, '2025-11-30 20:26:56'),
+(2, 'Admin', 'admin@autosya.com', '$2y$10$OhSVHndiztL2BTf/TFMTRuUWinRQNtnRtvHGrTIUnnBm1uOJmNQdO', 1, '2025-11-30 20:32:09'),
+(3, 'Test Lev', 'lev@test.com', '$2y$10$9Eq5Q4g5HxQFnhiKbjHXfui3VGiCDjL8DIx5xEXIxDYXC26t2YO9i', 2, '2025-12-02 17:30:46');
+
+-- -----------------------------------------------------
+-- Initial Data: Autos
+-- -----------------------------------------------------
+INSERT INTO `autos` (`id_auto`, `marca`, `modelo`, `anio`, `patente`, `precio_por_dia`, `estado`, `imagen`, `created_at`) VALUES
+(1, 'Jeep', 'Compass', 2025, 'AB744DA', 65.00, 'disponible', '1764811555.png', '2025-11-30 23:35:14'),
+(2, 'Toyota', 'Corolla', 2021, 'AB123CD', 45.00, 'disponible', '1764811518.avif', '2025-12-04 00:46:21'),
+(3, 'Volkswagen', 'Gol', 2018, 'AC452FG', 30.00, 'disponible', '1764811488.png', '2025-12-04 00:46:21'),
+(4, 'Renault', 'Kangoo', 2020, 'AD879LK', 38.50, 'disponible', '1764811457.webp', '2025-12-04 00:46:21'),
+(5, 'Chevrolet', 'Onix', 2022, 'AE901MN', 42.00, 'disponible', '1764811416.png', '2025-12-04 00:46:21'),
+(6, 'Ford', 'Focus', 2019, 'AF334TT', 37.00, 'disponible', '1764811361.png', '2025-12-04 00:46:21'),
+(7, 'Nissan', 'Versa', 2023, 'AG556QP', 48.00, 'disponible', '1764811320.avif', '2025-12-04 00:46:21'),
+(8, 'Fiat', 'Cronos', 2021, 'AH772BG', 35.00, 'disponible', '1764811239.png', '2025-12-04 00:46:21'),
+(9, 'Peugeot', '208', 2020, 'AJ281RS', 36.00, 'disponible', '1764811207.png', '2025-12-04 00:46:21'),
+(10, 'Citroën', 'C4 Cactus', 2019, 'AK990HT', 39.00, 'disponible', '1764811176.png', '2025-12-04 00:46:21'),
+(11, 'Hyundai', 'i20', 2022, 'AL378YU', 41.50, 'disponible', '1764811110.avif', '2025-12-04 00:46:21'),
+(12, 'Kia', 'Rio', 2021, 'AM927PL', 40.00, 'disponible', '1764811069.png', '2025-12-04 00:46:21'),
+(13, 'Jeep', 'Renegade', 2023, 'AN452MD', 55.00, 'disponible', '1764810989.avif', '2025-12-04 00:46:21'),
+(14, 'Toyota', 'Hilux', 2019, 'AP774GH', 60.00, 'disponible', '1764810943.png', '2025-12-04 00:46:21'),
+(15, 'Volkswagen', 'Amarok', 2020, 'AQ210VR', 62.00, 'disponible', '1764810899.webp', '2025-12-04 00:46:21'),
+(16, 'Ford', 'Ranger', 2022, 'AR892TF', 64.00, 'disponible', '1764810772.png', '2025-12-04 00:46:21'),
+(17, 'Chevrolet', 'Tracker', 2023, 'AS531QP', 50.00, 'disponible', '1764810731.png', '2025-12-04 00:46:21'),
+(18, 'Renault', 'Duster', 2021, 'AT667WR', 47.50, 'disponible', '1764810601.webp', '2025-12-04 00:46:21'),
+(19, 'Honda', 'Civic', 2018, 'AU115LO', 43.00, 'disponible', '1764810561.avif', '2025-12-04 00:46:21'),
+(20, 'Hyundai', 'Tucson', 2022, 'AV803QP', 58.00, 'disponible', '1764810456.webp', '2025-12-04 00:46:21'),
+(22, 'Kia', 'Sportage', 2023, 'AW390KS', 59.50, 'disponible', '1764810490.png', '2025-12-04 00:50:11'),
+(23, 'Mazda', '3', 2020, 'AX128JP', 44.00, 'disponible', '1764810400.webp', '2025-12-04 02:23:35'),
+(24, 'Subaru', 'Forester', 2021, 'AY332LM', 63.00, 'disponible', '1764810311.png', '2025-12-04 02:23:35'),
+(25, 'BMW', 'X1', 2019, 'AZ901TR', 75.00, 'disponible', '1764810270.avif', '2025-12-04 02:23:35'),
+(26, 'Mercedes-Benz', 'A200', 2022, 'BA557KM', 85.00, 'disponible', '1764810223.avif', '2025-12-04 02:23:35'),
+(27, 'Audi', 'A3', 2021, 'BB442FG', 82.00, 'disponible', '1764810175.png', '2025-12-04 02:23:35'),
+(28, 'Honda', 'HR-V', 2023, 'BC778LP', 56.00, 'disponible', '1764810089.png', '2025-12-04 02:23:35'),
+(29, 'Toyota', 'RAV4', 2020, 'BD447QS', 70.00, 'disponible', '1764810021.avif', '2025-12-04 02:23:35'),
+(30, 'Volkswagen', 'T-Cross', 2021, 'BE990HT', 52.00, 'disponible', '1764809987.png', '2025-12-04 02:23:35'),
+(31, 'Peugeot', '3008', 2022, 'BF611WR', 67.00, 'disponible', '1764809932.avif', '2025-12-04 02:23:35'),
+(32, 'Chevrolet', 'S10', 2019, 'BG221MD', 58.50, 'disponible', '1764809895.jpg', '2025-12-04 02:23:35'),
+(33, 'Hyundai', 'Elantra', 2020, 'BH556UY', 39.00, 'disponible', '1764809683.png', '2025-12-04 02:23:35'),
+(34, 'Kia', 'Cerato', 2019, 'BJ909KS', 38.00, 'disponible', '1764809577.png', '2025-12-04 02:23:35'),
+(35, 'Nissan', 'Kicks', 2022, 'BK345PL', 48.00, 'disponible', '1764809482.webp', '2025-12-04 02:23:35'),
+(36, 'Fiat', 'Argo', 2023, 'BL782VF', 33.00, 'disponible', '1764809354.png', '2025-12-04 02:23:35'),
+(37, 'Chery', 'Tiggo 4', 2021, 'BM664PP', 47.00, 'disponible', '1764809287.avif', '2025-12-04 02:23:35'),
+(38, 'Geely', 'Coolray', 2023, 'BN117GF', 49.00, 'disponible', '1764809245.jpg', '2025-12-04 02:23:35'),
+(39, 'Haval', 'Jolion', 2022, 'BP882QK', 51.00, 'disponible', '1764808810.png', '2025-12-04 02:23:35'),
+(40, 'Ford', 'EcoSport', 2018, 'BQ774DS', 34.00, 'disponible', '1764808557.webp', '2025-12-04 02:23:35'),
+(41, 'Renault', 'Sandero Stepway', 2019, 'BR335LT', 32.00, 'disponible', '1764806861.png', '2025-12-04 02:23:35'),
+(42, 'Mitsubishi', 'Outlander', 2021, 'BS901FM', 66.00, 'disponible', '1764806960.webp', '2025-12-04 02:23:35');
 
 SHOW WARNINGS;
 

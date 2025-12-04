@@ -1,6 +1,6 @@
 // Cerrar alertas automáticamente después de 5 segundos
 document.addEventListener("DOMContentLoaded", function () {
-  const alerts = document.querySelectorAll(".alert");
+  const alerts = document.querySelectorAll(".alert:not(.alert-persistent)");
 
   alerts.forEach(function (alert) {
     setTimeout(function () {

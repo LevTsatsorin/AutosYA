@@ -13,16 +13,16 @@
                 <div class="col-md-4 mb-3 mb-md-0">
                     <h6 style="font-weight: 600;">Enlaces Rápidos</h6>
                     <ul class="list-unstyled">
-                        <li><a href="../pages/inicio.php" class="text-white opacity-75 text-decoration-none">Inicio</a></li>
+                        <li><a href="/AutosYA/pages/inicio.php" class="text-white opacity-75 text-decoration-none">Inicio</a></li>
                         <?php if (!isset($_SESSION['id_usuario'])): ?>
-                            <li><a href="../pages/login.php" class="text-white opacity-75 text-decoration-none">Iniciar Sesión</a></li>
-                            <li><a href="../pages/registro.php" class="text-white opacity-75 text-decoration-none">Registrarse</a></li>
+                            <li><a href="/AutosYA/pages/login.php" class="text-white opacity-75 text-decoration-none">Iniciar Sesión</a></li>
+                            <li><a href="/AutosYA/pages/registro.php" class="text-white opacity-75 text-decoration-none">Registrarse</a></li>
                         <?php else: ?>
                             <?php if (isset($_SESSION['fk_rol']) && $_SESSION['fk_rol'] == 1): ?>
-                                <li><a href="../admin/index.php" class="text-white opacity-75 text-decoration-none">Panel Admin</a></li>
+                                <li><a href="/AutosYA/admin/index.php" class="text-white opacity-75 text-decoration-none">Panel Admin</a></li>
                             <?php else: ?>
-                                <li><a href="../cliente/perfil.php" class="text-white opacity-75 text-decoration-none">Mi Perfil</a></li>
-                                <li><a href="../pages/mis_reservas.php" class="text-white opacity-75 text-decoration-none">Mis Reservas</a></li>
+                                <li><a href="/AutosYA/cliente/perfil.php" class="text-white opacity-75 text-decoration-none">Mi Perfil</a></li>
+                                <li><a href="/AutosYA/pages/mis_reservas.php" class="text-white opacity-75 text-decoration-none">Mis Reservas</a></li>
                             <?php endif; ?>
                         <?php endif; ?>
                     </ul>

@@ -33,19 +33,42 @@ if ($row['total'] > 0) {
 }
 $stmt->close();
 
-// Eliminar el auto
-$stmt = $con->prepare("DELETE FROM autos WHERE id_auto = ?");
+$stmt = $con->prepare("SELECT imagen FROM autos WHERE id_auto = ?");
 $stmt->bind_param("i", $id_auto);
+$stmt->execute();
+$resultado = $stmt->get_result();
 
-if ($stmt->execute()) {
+if ($resultado->num_rows > 0) {
+    $auto = $resultado->fetch_assoc();
+    $imagen = $auto['imagen'];
     $stmt->close();
-    mysqli_close($con);
-    header("Location: ../index.php?baja=ok");
-    exit();
+
+    // Eliminar el auto
+    $stmt = $con->prepare("DELETE FROM autos WHERE id_auto = ?");
+    $stmt->bind_param("i", $id_auto);
+
+    if ($stmt->execute()) {
+        // Eliminar imagen física si existe
+        if (!empty($imagen)) {
+            $ruta_imagen = "../../auto_imgs/$imagen";
+            if (file_exists($ruta_imagen)) {
+                unlink($ruta_imagen);
+            }
+        }
+
+        $stmt->close();
+        mysqli_close($con);
+        header("Location: ../index.php?baja=ok");
+        exit();
+    } else {
+        $stmt->close();
+        mysqli_close($con);
+        header("Location: ../index.php?error=baja_fallida");
+        exit();
+    }
 } else {
     $stmt->close();
     mysqli_close($con);
-    header("Location: ../index.php?error=baja_fallida");
+    header("Location: ../index.php?error=auto_no_encontrado");
     exit();
 }
-?>

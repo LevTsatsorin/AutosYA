@@ -244,9 +244,23 @@
 /* Car Cards */
 .car-card-image {
   height: 200px;
-  background: var(--parchment);
+  background: linear-gradient(135deg, #e8eef3 0%, #f5f7fa 100%);
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.car-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .car-card-image img {
+  transform: scale(1.05);
 }
 
 .car-card-image i {

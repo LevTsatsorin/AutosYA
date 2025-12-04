@@ -32,7 +32,7 @@ $rol_usuario = $esta_autenticado ? $_SESSION['fk_rol'] : 0;
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid px-4">
-            <a class="navbar-brand" href="<?php echo $esta_autenticado && $rol_usuario == 1 ? '../pages/inicio.php' : ($esta_autenticado ? '../pages/inicio.php' : 'inicio.php'); ?>">
+            <a class="navbar-brand" href="/AutosYA/pages/inicio.php">
                 <i class="bi bi-car-front-fill"></i> Autos<span style="color: var(--rosy-taupe);">YA</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -41,7 +41,7 @@ $rol_usuario = $esta_autenticado ? $_SESSION['fk_rol'] : 0;
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $esta_autenticado && $rol_usuario == 1 ? '../pages/inicio.php' : ($esta_autenticado ? '../pages/inicio.php' : 'inicio.php'); ?>">
+                        <a class="nav-link" href="/AutosYA/pages/inicio.php">
                             <i class="bi bi-house-fill"></i> Inicio
                         </a>
                     </li>
@@ -49,19 +49,19 @@ $rol_usuario = $esta_autenticado ? $_SESSION['fk_rol'] : 0;
                     <?php if ($esta_autenticado && $rol_usuario == 1): ?>
                         <!-- Links para Administrador -->
                         <li class="nav-item">
-                            <a class="nav-link" href="../admin/index.php">
+                            <a class="nav-link" href="/AutosYA/admin/index.php">
                                 <i class="bi bi-speedometer2"></i> Panel Admin
                             </a>
                         </li>
                     <?php elseif ($esta_autenticado && $rol_usuario == 2): ?>
                         <!-- Links para Cliente -->
                         <li class="nav-item">
-                            <a class="nav-link" href="../cliente/perfil.php">
+                            <a class="nav-link" href="/AutosYA/cliente/perfil.php">
                                 <i class="bi bi-person-circle"></i> Mi Perfil
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../pages/mis_reservas.php">
+                            <a class="nav-link" href="/AutosYA/pages/mis_reservas.php">
                                 <i class="bi bi-calendar-check-fill"></i> Mis Reservas
                             </a>
                         </li>
@@ -75,25 +75,25 @@ $rol_usuario = $esta_autenticado ? $_SESSION['fk_rol'] : 0;
                                 <i class="bi bi-person-circle"></i> <?php echo htmlspecialchars($nombre_usuario); ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="<?php echo $rol_usuario == 1 ? '../admin/index.php' : '../cliente/perfil.php'; ?>">
+                                <li><a class="dropdown-item" href="<?php echo $rol_usuario == 1 ? '/AutosYA/admin/index.php' : '/AutosYA/cliente/perfil.php'; ?>">
                                         <i class="bi bi-speedometer2"></i> Dashboard
                                     </a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item text-danger" href="../log/cerrar.php">
+                                <li><a class="dropdown-item text-danger" href="/AutosYA/log/cerrar.php">
                                         <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
                                     </a></li>
                             </ul>
                         </li>
                     <?php else: ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="login.php">
+                            <a class="nav-link" href="/AutosYA/pages/login.php">
                                 <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link nav-link-register" href="registro.php">
+                            <a class="nav-link nav-link-register" href="/AutosYA/pages/registro.php">
                                 <i class="bi bi-person-plus"></i> Registrarse
                             </a>
                         </li>

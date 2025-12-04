@@ -192,8 +192,13 @@ include_once("../components/header.php");
                 ?>
                         <div class="col-md-6 col-xl-4">
                             <div class="card h-100 shadow-sm">
-                                <div class="car-card-image d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-car-front-fill text-muted car-icon-large"></i>
+                                <div class="car-card-image">
+                                    <?php if (!empty($fila['imagen'])): ?>
+                                        <img src="../auto_imgs/<?php echo htmlspecialchars($fila['imagen']); ?>"
+                                            alt="<?php echo htmlspecialchars($fila['marca'] . ' ' . $fila['modelo']); ?>">
+                                    <?php else: ?>
+                                        <i class="bi bi-car-front-fill text-muted car-icon-large"></i>
+                                    <?php endif; ?>
                                     <div class="car-card-price">
                                         $<?php echo number_format($fila['precio_por_dia'], 0); ?>/día
                                     </div>

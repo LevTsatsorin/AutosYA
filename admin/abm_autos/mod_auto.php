@@ -8,6 +8,9 @@ if (!isset($_SESSION['id_usuario']) || $_SESSION['fk_rol'] != 1) {
 }
 
 include_once("../../components/header.php");
+?>
+<link rel="stylesheet" href="/AutosYA/css/admin.css">
+<?php
 
 // Obtener ID del auto
 $id_auto = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -36,6 +39,25 @@ $stmt->close();
 
 <div class="row justify-content-center">
     <div class="col-md-8">
+
+        <?php
+        // Mostrar mensaje de éxito en actualización de imagen
+        if (isset($_GET['img'])) {
+            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle"></i> Imagen actualizada con éxito!
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>';
+        }
+
+        // Mostrar mensaje de éxito en eliminación de imagen
+        if (isset($_GET['img_deleted'])) {
+            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle"></i> Imagen eliminada con éxito!
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>';
+        }
+        ?>
+
         <div class="card shadow">
             <div class="card-header bg-warning text-dark">
                 <h4 class="mb-0">
@@ -134,6 +156,82 @@ $stmt->close();
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+
+        <!-- Card para gestionar imagen -->
+        <div class="card shadow mt-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="bi bi-image"></i> Gestionar Imagen
+                </h5>
+            </div>
+            <div class="card-body">
+                <?php if (!empty($auto['imagen'])): ?>
+                    <div class="text-center mb-3">
+                        <img src="../../auto_imgs/<?php echo htmlspecialchars($auto['imagen']); ?>"
+                            alt="<?php echo htmlspecialchars($auto['marca'] . ' ' . $auto['modelo']); ?>"
+                            class="img-fluid rounded shadow" style="max-height: 300px;">
+                    </div>
+                <?php else: ?>
+                    <div class="alert alert-info mb-3 alert-persistent">
+                        <i class="bi bi-info-circle"></i> Este auto no tiene imagen asignada.
+                    </div>
+                <?php endif; ?>
+
+                <form action="mod_auto_img.php" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="id_auto" value="<?php echo $auto['id_auto']; ?>">
+
+                    <div class="mb-3">
+                        <label for="nueva_imagen" class="form-label">
+                            <?php echo !empty($auto['imagen']) ? 'Cambiar Imagen' : 'Agregar Imagen'; ?>
+                        </label>
+                        <input type="file" class="form-control" id="nueva_imagen" name="nueva_imagen"
+                            accept="image/*" required>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-info">
+                            <i class="bi bi-upload"></i> <?php echo !empty($auto['imagen']) ? 'Actualizar Imagen' : 'Subir Imagen'; ?>
+                        </button>
+
+                        <?php if (!empty($auto['imagen'])): ?>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarImagenModal">
+                                <i class="bi bi-trash"></i> Eliminar Imagen
+                            </button>
+                        <?php endif; ?>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmación para eliminar imagen -->
+<div class="modal fade" id="eliminarImagenModal" tabindex="-1" aria-labelledby="eliminarImagenModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="eliminarImagenModalLabel">
+                    <i class="bi bi-exclamation-triangle"></i> Confirmar Eliminación
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Estás seguro de que deseas eliminar la imagen de este auto?</p>
+            </div>
+            <div class="modal-footer">
+                <div class="d-flex gap-2 w-100 justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle"></i> Cancelar
+                    </button>
+                    <form action="baja_auto_img.php" method="POST" style="display: inline;">
+                        <input type="hidden" name="id_auto" value="<?php echo $auto['id_auto']; ?>">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
