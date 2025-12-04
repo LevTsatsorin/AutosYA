@@ -13,7 +13,7 @@ include_once("../../components/config/conf.php");
 $id_auto = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if ($id_auto <= 0) {
-    header("Location: ../index.php?error=id_invalido");
+    header("Location: ../gestion_autos.php?error=id_invalido");
     exit();
 }
 
@@ -28,7 +28,7 @@ $row = $resultado->fetch_assoc();
 if ($row['total'] > 0) {
     $stmt->close();
     mysqli_close($con);
-    header("Location: ../index.php?error=auto_con_reservas");
+    header("Location: ../gestion_autos.php?error=auto_con_reservas");
     exit();
 }
 $stmt->close();
@@ -58,17 +58,17 @@ if ($resultado->num_rows > 0) {
 
         $stmt->close();
         mysqli_close($con);
-        header("Location: ../index.php?baja=ok");
+        header("Location: ../gestion_autos.php?baja=ok");
         exit();
     } else {
         $stmt->close();
         mysqli_close($con);
-        header("Location: ../index.php?error=baja_fallida");
+        header("Location: ../gestion_autos.php?error=baja_fallida");
         exit();
     }
 } else {
     $stmt->close();
     mysqli_close($con);
-    header("Location: ../index.php?error=auto_no_encontrado");
+    header("Location: ../gestion_autos.php?error=auto_no_encontrado");
     exit();
 }

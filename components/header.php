@@ -53,6 +53,11 @@ $rol_usuario = $esta_autenticado ? $_SESSION['fk_rol'] : 0;
                                 <i class="bi bi-speedometer2"></i> Panel Admin
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/AutosYA/admin/gestion_autos.php">
+                                <i class="bi bi-car-front-fill"></i> Gestión de Autos
+                            </a>
+                        </li>
                     <?php elseif ($esta_autenticado && $rol_usuario == 2): ?>
                         <!-- Links para Cliente -->
                         <li class="nav-item">

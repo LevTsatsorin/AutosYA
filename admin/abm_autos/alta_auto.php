@@ -11,7 +11,7 @@ include_once("../../components/config/conf.php");
 
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header("Location: ../index.php?error=metodo_invalido");
+    header("Location: ../gestion_autos.php?error=metodo_invalido");
     exit();
 }
 
@@ -31,7 +31,7 @@ if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
     // Validar extensiones
     $extensiones_permitidas = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'];
     if (!in_array($extension, $extensiones_permitidas)) {
-        header("Location: ../index.php?error=formato_no_permitido");
+        header("Location: ../gestion_autos.php?error=formato_no_permitido");
         exit();
     }
 
@@ -52,7 +52,7 @@ if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
 
 // Validar campos vacíos
 if (empty($marca) || empty($modelo) || empty($patente) || $anio <= 0 || $precio_por_dia <= 0) {
-    header("Location: ../index.php?error=campos_invalidos");
+    header("Location: ../gestion_autos.php?error=campos_invalidos");
     exit();
 }
 
@@ -65,7 +65,7 @@ $resultado = $stmt->get_result();
 if ($resultado->num_rows > 0) {
     $stmt->close();
     mysqli_close($con);
-    header("Location: ../index.php?error=patente_existente");
+    header("Location: ../gestion_autos.php?error=patente_existente");
     exit();
 }
 $stmt->close();
@@ -78,11 +78,11 @@ $stmt->bind_param("ssisss", $marca, $modelo, $anio, $patente, $precio_por_dia, $
 if ($stmt->execute()) {
     $stmt->close();
     mysqli_close($con);
-    header("Location: ../index.php?alta=ok");
+    header("Location: ../gestion_autos.php?alta=ok");
     exit();
 } else {
     $stmt->close();
     mysqli_close($con);
-    header("Location: ../index.php?error=alta_fallida");
+    header("Location: ../gestion_autos.php?error=alta_fallida");
     exit();
 }

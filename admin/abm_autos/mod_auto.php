@@ -16,7 +16,7 @@ include_once("../../components/header.php");
 $id_auto = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 if ($id_auto <= 0) {
-    header("Location: ../index.php?error=id_invalido");
+    header("Location: ../gestion_autos.php?error=id_invalido");
     exit();
 }
 
@@ -29,7 +29,7 @@ $resultado = $stmt->get_result();
 if ($resultado->num_rows === 0) {
     $stmt->close();
     mysqli_close($con);
-    header("Location: ../index.php?error=auto_no_encontrado");
+    header("Location: ../gestion_autos.php?error=auto_no_encontrado");
     exit();
 }
 
@@ -148,7 +148,7 @@ $stmt->close();
                     </div>
 
                     <div class="d-flex gap-2 justify-content-end">
-                        <a href="../index.php" class="btn btn-secondary">
+                        <a href="../gestion_autos.php" class="btn btn-secondary">
                             <i class="bi bi-x-circle"></i> Cancelar
                         </a>
                         <button type="submit" class="btn btn-warning">

@@ -20,6 +20,7 @@
                         <?php else: ?>
                             <?php if (isset($_SESSION['fk_rol']) && $_SESSION['fk_rol'] == 1): ?>
                                 <li><a href="/AutosYA/admin/index.php" class="text-white opacity-75 text-decoration-none">Panel Admin</a></li>
+                                <li><a href="/AutosYA/admin/gestion_autos.php" class="text-white opacity-75 text-decoration-none">Gestión de Autos</a></li>
                             <?php else: ?>
                                 <li><a href="/AutosYA/cliente/perfil.php" class="text-white opacity-75 text-decoration-none">Mi Perfil</a></li>
                                 <li><a href="/AutosYA/pages/mis_reservas.php" class="text-white opacity-75 text-decoration-none">Mis Reservas</a></li>

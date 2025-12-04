@@ -10,14 +10,14 @@ if (!isset($_SESSION['id_usuario']) || $_SESSION['fk_rol'] != 1) {
 include_once("../../components/config/conf.php");
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header("Location: ../index.php?error=metodo_invalido");
+    header("Location: ../gestion_autos.php?error=metodo_invalido");
     exit();
 }
 
 $id_auto = isset($_POST['id_auto']) ? intval($_POST['id_auto']) : 0;
 
 if ($id_auto <= 0) {
-    header("Location: ../index.php?error=id_invalido");
+    header("Location: ../gestion_autos.php?error=id_invalido");
     exit();
 }
 
@@ -36,7 +36,7 @@ $resultado = $stmt->get_result();
 if ($resultado->num_rows === 0) {
     $stmt->close();
     mysqli_close($con);
-    header("Location: ../index.php?error=auto_no_encontrado");
+    header("Location: ../gestion_autos.php?error=auto_no_encontrado");
     exit();
 }
 

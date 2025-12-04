@@ -49,11 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_auto'])) {
     } else {
         $stmt->close();
         mysqli_close($con);
-        header("Location: ../index.php?error=auto_no_encontrado");
+        header("Location: ../gestion_autos.php?error=auto_no_encontrado");
         exit();
     }
 } else {
     mysqli_close($con);
-    header("Location: ../index.php");
+    header("Location: ../gestion_autos.php");
     exit();
 }

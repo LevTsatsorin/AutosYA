@@ -10,7 +10,7 @@ if (!isset($_SESSION['id_usuario']) || $_SESSION['fk_rol'] != 1) {
 include_once("../../components/config/conf.php");
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header("Location: ../index.php?error=metodo_invalido");
+    header("Location: ../gestion_autos.php?error=metodo_invalido");
     exit();
 }
 
@@ -27,14 +27,14 @@ if (
     $id_auto <= 0 || empty($marca) || empty($modelo) || empty($patente) ||
     $anio <= 0 || $precio_por_dia <= 0
 ) {
-    header("Location: ../index.php?error=campos_invalidos");
+    header("Location: ../gestion_autos.php?error=campos_invalidos");
     exit();
 }
 
 // Validar estado
 $estados_validos = ['disponible', 'reservado', 'mantenimiento'];
 if (!in_array($estado, $estados_validos)) {
-    header("Location: ../index.php?error=estado_invalido");
+    header("Location: ../gestion_autos.php?error=estado_invalido");
     exit();
 }
 
@@ -60,11 +60,11 @@ $stmt->bind_param("ssisssi", $marca, $modelo, $anio, $patente, $precio_por_dia, 
 if ($stmt->execute()) {
     $stmt->close();
     mysqli_close($con);
-    header("Location: ../index.php?mod=ok");
+    header("Location: ../gestion_autos.php?mod=ok");
     exit();
 } else {
     $stmt->close();
     mysqli_close($con);
-    header("Location: ../index.php?error=mod_fallida");
+    header("Location: ../gestion_autos.php?error=mod_fallida");
     exit();
 }
