@@ -79,6 +79,16 @@
   border: none !important;
 }
 
+.card.shadow-lg {
+  border: none !important;
+}
+
+.card.shadow-lg:hover {
+  border: none !important;
+  transform: none !important;
+  transition: none !important;
+}
+
 .admin-table-card .card-header {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
@@ -87,6 +97,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.admin-table-card-usuarios .card-header {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+  border: none;
 }
 
 .admin-table-card .card-header h4 {
@@ -109,6 +125,24 @@
 .admin-table-card .card-header .btn-light:hover {
   background: #dee2e6;
   color: #212529;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.admin-table-card-usuarios .card-header .btn-outline-light {
+  background: transparent;
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+  padding: 0.6rem 1.25rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.admin-table-card-usuarios .card-header .btn-outline-light:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: white;
+  color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
@@ -435,6 +469,12 @@
   height: 37px;
 }
 
+/* Badge Yo para usuario actual */
+.badge.bg-secondary {
+  padding: 0.25rem 0.4rem;
+  margin-left: 0.35rem;
+}
+
 /* Card header actions container */
 .card-header-actions {
   display: flex;
@@ -446,13 +486,13 @@
   .admin-table-card .card-header {
     flex-wrap: wrap;
   }
-  
+
   .card-header-actions {
     flex-direction: column;
     width: 100%;
     margin-top: 0.5rem;
   }
-  
+
   .card-header-actions .admin-action-btn {
     width: 100%;
   }

@@ -246,6 +246,23 @@ include_once("../components/header.php");
             </div>
         </div>
     </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card shadow-lg admin-table-card admin-table-card-usuarios">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="bi bi-people-fill"></i> Gestión de Usuarios
+                    </h4>
+                    <div class="card-header-actions">
+                        <a href="gestion_usuarios.php" class="btn btn-light admin-action-btn">
+                            <i class="bi bi-list-ul"></i> <span>Ver Listado</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <?php include_once("components/modal_agregar_auto.php"); ?>

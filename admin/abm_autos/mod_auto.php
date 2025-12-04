@@ -58,8 +58,8 @@ $stmt->close();
         }
         ?>
 
-        <div class="card shadow">
-            <div class="card-header bg-warning text-dark">
+        <div class="card shadow mt-4">
+            <div class="card-header bg-primary text-white">
                 <h4 class="mb-0">
                     <i class="bi bi-pencil-square"></i> Modificar Auto
                 </h4>
@@ -106,7 +106,7 @@ $stmt->close();
 
                         <div class="col-md-4 mb-3">
                             <label for="patente" class="form-label">
-                                <i class="bi bi-credit-card"></i> Patente
+                                <i class="bi bi-postcard"></i> Patente
                             </label>
                             <input type="text" class="form-control" id="patente" name="patente"
                                 value="<?php echo htmlspecialchars($auto['patente']); ?>" required>
@@ -161,7 +161,7 @@ $stmt->close();
 
         <!-- Card para gestionar imagen -->
         <div class="card shadow mt-4">
-            <div class="card-header bg-info text-white">
+            <div class="card-header bg-primary text-white">
                 <h5 class="mb-0">
                     <i class="bi bi-image"></i> Gestionar Imagen
                 </h5>

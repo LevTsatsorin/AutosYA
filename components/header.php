@@ -58,6 +58,11 @@ $rol_usuario = $esta_autenticado ? $_SESSION['fk_rol'] : 0;
                                 <i class="bi bi-car-front-fill"></i> Gestión de Autos
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/AutosYA/admin/gestion_usuarios.php">
+                                <i class="bi bi-people-fill"></i> Gestión de Usuarios
+                            </a>
+                        </li>
                     <?php elseif ($esta_autenticado && $rol_usuario == 2): ?>
                         <!-- Links para Cliente -->
                         <li class="nav-item">
@@ -82,6 +87,9 @@ $rol_usuario = $esta_autenticado ? $_SESSION['fk_rol'] : 0;
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item" href="<?php echo $rol_usuario == 1 ? '/AutosYA/admin/index.php' : '/AutosYA/cliente/perfil.php'; ?>">
                                         <i class="bi bi-speedometer2"></i> Dashboard
+                                    </a></li>
+                                <li><a class="dropdown-item" href="/AutosYA/usuario/mod_usuario.php?id=<?php echo $_SESSION['id_usuario']; ?>">
+                                        <i class="bi bi-person-gear"></i> Editar Perfil
                                     </a></li>
                                 <li>
                                     <hr class="dropdown-divider">
