@@ -1,5 +1,4 @@
 <?php
-// Verificar autenticación y rol
 session_start();
 
 if (!isset($_SESSION['id_usuario'])) {
@@ -20,28 +19,29 @@ include_once("../components/header.php");
     <div class="row">
         <div class="col-12">
             <h1 class="admin-page-title mb-4">
-                <i class="bi bi-car-front-fill"></i> Gestión de Autos
+                <i class="bi bi-calendar-check"></i> Gestión de Reservas
             </h1>
 
             <?php
             // Mostrar mensajes de éxito/error
-            if (isset($_GET['alta']) && $_GET['alta'] === 'ok') {
-                echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <i class="bi bi-check-circle"></i> Auto agregado exitosamente.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                  </div>';
-            }
-            if (isset($_GET['mod']) && $_GET['mod'] === 'ok') {
-                echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <i class="bi bi-check-circle"></i> Auto modificado exitosamente.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                  </div>';
-            }
             if (isset($_GET['baja']) && $_GET['baja'] === 'ok') {
                 echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <i class="bi bi-check-circle"></i> Auto eliminado exitosamente.
+                    <i class="bi bi-check-circle"></i> Reserva eliminada exitosamente.
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                   </div>';
+            }
+            if (isset($_GET['error'])) {
+                $error_msg = [
+                    'reserva_no_encontrada' => 'No se encontró la reserva',
+                    'db_error' => 'Error al procesar la solicitud'
+                ];
+                $error = $_GET['error'];
+                if (isset($error_msg[$error])) {
+                    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="bi bi-exclamation-triangle"></i> ' . $error_msg[$error] . '
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                      </div>';
+                }
             }
             ?>
         </div>
@@ -52,11 +52,8 @@ include_once("../components/header.php");
             <div class="card shadow-lg admin-table-card">
                 <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-3">
                     <h4 class="mb-0">
-                        <i class="bi bi-list-ul"></i> Listado de Autos
+                        <i class="bi bi-list-ul"></i> Listado de Reservas
                     </h4>
-                    <button class="btn btn-primary admin-action-btn" data-bs-toggle="modal" data-bs-target="#modalAgregarAuto">
-                        <i class="bi bi-plus-circle"></i> <span>Agregar Auto</span>
-                    </button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -64,11 +61,11 @@ include_once("../components/header.php");
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Marca</th>
-                                    <th>Modelo</th>
-                                    <th>Año</th>
-                                    <th>Patente</th>
-                                    <th>Precio/Día</th>
+                                    <th>Cliente</th>
+                                    <th>Auto</th>
+                                    <th>Fecha Inicio</th>
+                                    <th>Fecha Fin</th>
+                                    <th>Precio Total</th>
                                     <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
@@ -81,49 +78,81 @@ include_once("../components/header.php");
                                 $offset = ($pagina_actual - 1) * $registros_por_pagina;
 
                                 // Contar total
-                                $stmt_count = $con->prepare("SELECT COUNT(*) as total FROM autos");
+                                $stmt_count = $con->prepare("SELECT COUNT(*) as total FROM reservas");
                                 $stmt_count->execute();
                                 $result_count = $stmt_count->get_result();
-                                $total_registros = $result_count->fetch_assoc()['total'];
-                                $total_paginas = ceil($total_registros / $registros_por_pagina);
+                                $total_reservas = $result_count->fetch_assoc()['total'];
+                                $total_paginas = ceil($total_reservas / $registros_por_pagina);
                                 $stmt_count->close();
 
                                 // Obtener registros de la página actual
-                                $stmt = $con->prepare("SELECT * FROM autos ORDER BY id_auto DESC LIMIT ? OFFSET ?");
+                                $query = "SELECT r.*, 
+                                           u.nombre as cliente_nombre, 
+                                           u.correo as cliente_email,
+                                           a.marca, 
+                                           a.modelo, 
+                                           a.patente
+                                    FROM reservas r
+                                    INNER JOIN usuarios u ON r.fk_usuario = u.id_usuario
+                                    INNER JOIN autos a ON r.fk_auto = a.id_auto
+                                    ORDER BY r.id_reserva DESC 
+                                    LIMIT ? OFFSET ?";
+
+                                $stmt = $con->prepare($query);
+
+                                if ($stmt === false) {
+                                    echo "<tr><td colspan='8' class='text-center bg-danger text-white'>ERROR: " . htmlspecialchars($con->error) . "</td></tr>";
+                                    die();
+                                }
+
                                 $stmt->bind_param("ii", $registros_por_pagina, $offset);
-                                $stmt->execute();
+
+                                if (!$stmt->execute()) {
+                                    echo "<tr><td colspan='8' class='text-center bg-danger text-white'>ERROR: {$stmt->error}</td></tr>";
+                                    die();
+                                }
+
                                 $resultado = $stmt->get_result();
 
                                 if ($resultado->num_rows > 0) {
                                     while ($fila = $resultado->fetch_assoc()) {
-                                        $badge_class = $fila['estado'] === 'disponible' ? 'bg-success' : ($fila['estado'] === 'reservado' ? 'bg-reservado' : 'bg-secondary');
+                                        $badge_class = match ($fila['estado']) {
+                                            'confirmada' => 'bg-success',
+                                            'pendiente' => 'bg-warning text-dark',
+                                            'completada' => 'bg-info',
+                                            'cancelada' => 'bg-danger',
+                                            default => 'bg-secondary'
+                                        };
+
+                                        $precio = $fila['precio_total'] ? '$' . number_format($fila['precio_total'], 2) : '-';
 
                                         echo '<tr>
-                                            <td>' . $fila['id_auto'] . '</td>
-                                            <td>' . htmlspecialchars($fila['marca']) . '</td>
-                                            <td>' . htmlspecialchars($fila['modelo']) . '</td>
-                                            <td>' . $fila['anio'] . '</td>
-                                            <td><strong>' . htmlspecialchars($fila['patente']) . '</strong></td>
-                                            <td>$' . number_format($fila['precio_por_dia'], 2) . '</td>
-                                            <td><span class="badge ' . $badge_class . '">' . ucfirst($fila['estado']) . '</span></td>
+                                            <td>' . $fila['id_reserva'] . '</td>
                                             <td>
-                                                <a href="abm_autos/mod_auto.php?id=' . $fila['id_auto'] . '" 
-                                                   class="btn btn-sm btn-warning" title="Modificar">
-                                                    <i class="bi bi-pencil"></i>
-                                                </a>
+                                                <strong>' . htmlspecialchars($fila['cliente_nombre']) . '</strong><br>
+                                                <small class="text-muted">' . htmlspecialchars($fila['cliente_email']) . '</small>
+                                            </td>
+                                            <td>
+                                                <strong>' . htmlspecialchars($fila['marca']) . ' ' . htmlspecialchars($fila['modelo']) . '</strong><br>
+                                                <small class="text-muted">' . htmlspecialchars($fila['patente']) . '</small>
+                                            </td>
+                                            <td>' . date('d/m/Y', strtotime($fila['fecha_inicio'])) . '</td>
+                                            <td>' . date('d/m/Y', strtotime($fila['fecha_fin'])) . '</td>
+                                            <td>' . $precio . '</td>
+                                            <td><span class="badge ' . $badge_class . '">' . ucfirst($fila['estado']) . '</span></td>
+                                            <td class="text-center">
                                                 <button type="button" 
                                                    class="btn btn-sm btn-danger" 
                                                    data-bs-toggle="modal" 
-                                                   data-bs-target="#eliminarAutoModal' . $fila['id_auto'] . '"
+                                                   data-bs-target="#eliminarReservaModal' . $fila['id_reserva'] . '"
                                                    title="Eliminar">
                                                     <i class="bi bi-trash"></i>
                                                 </button>
                                             </td>
                                           </tr>';
 
-                                        // Modal de confirmación para cada auto
                                         echo '
-                                        <div class="modal fade" id="eliminarAutoModal' . $fila['id_auto'] . '" tabindex="-1" aria-hidden="true">
+                                        <div class="modal fade" id="eliminarReservaModal' . $fila['id_reserva'] . '" tabindex="-1" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header bg-danger text-white">
@@ -133,16 +162,17 @@ include_once("../components/header.php");
                                                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <p class="mb-2">Estás seguro de que deseas eliminar este auto?</p>
-                                                        <p class="mb-0"><strong>' . htmlspecialchars($fila['marca']) . ' ' . htmlspecialchars($fila['modelo']) . ' (' . $fila['anio'] . ')</strong></p>
-                                                        <p class="text-muted small mb-0">Patente: ' . htmlspecialchars($fila['patente']) . '</p>
+                                                        <p class="mb-2">Estás seguro de que deseas eliminar esta reserva?</p>
+                                                        <p class="mb-1"><strong>Cliente:</strong> ' . htmlspecialchars($fila['cliente_nombre']) . '</p>
+                                                        <p class="mb-1"><strong>Auto:</strong> ' . htmlspecialchars($fila['marca']) . ' ' . htmlspecialchars($fila['modelo']) . '</p>
+                                                        <p class="mb-0"><strong>Fechas:</strong> ' . date('d/m/Y', strtotime($fila['fecha_inicio'])) . ' - ' . date('d/m/Y', strtotime($fila['fecha_fin'])) . '</p>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <div class="d-flex gap-2 w-100 justify-content-center">
                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                                 <i class="bi bi-x-circle"></i> Cancelar
                                                             </button>
-                                                            <a href="abm_autos/baja_auto.php?id=' . $fila['id_auto'] . '" class="btn btn-danger">
+                                                            <a href="abm_reservas/baja_reserva_admin.php?id=' . $fila['id_reserva'] . '" class="btn btn-danger">
                                                                 <i class="bi bi-trash"></i> Eliminar
                                                             </a>
                                                         </div>
@@ -152,7 +182,7 @@ include_once("../components/header.php");
                                         </div>';
                                     }
                                 } else {
-                                    echo '<tr><td colspan="8" class="text-center text-muted">No hay autos registrados</td></tr>';
+                                    echo '<tr><td colspan="8" class="text-center text-muted">No hay reservas registradas</td></tr>';
                                 }
                                 $stmt->close();
                                 ?>
@@ -163,7 +193,7 @@ include_once("../components/header.php");
                     <?php if ($total_paginas > 1): ?>
                         <div class="d-flex justify-content-between align-items-center mt-3 px-3 pb-3">
                             <div class="text-muted">
-                                Mostrando <?php echo min($offset + 1, $total_registros); ?> - <?php echo min($offset + $registros_por_pagina, $total_registros); ?> de <?php echo $total_registros; ?> autos
+                                Mostrando <?php echo min($offset + 1, $total_registros); ?> - <?php echo min($offset + $registros_por_pagina, $total_registros); ?> de <?php echo $total_registros; ?> reservas
                             </div>
                             <nav aria-label="Paginación">
                                 <ul class="pagination mb-0">
@@ -205,7 +235,5 @@ include_once("../components/header.php");
         </div>
     </div>
 </div>
-
-<?php include_once("components/modal_agregar_auto.php"); ?>
 
 <?php include_once("../components/footer.php"); ?>

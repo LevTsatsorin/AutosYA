@@ -105,6 +105,12 @@
   border: none;
 }
 
+.admin-table-card-reservas .card-header {
+  background: linear-gradient(135deg, #f2c94c 0%, #f2994a 100%);
+  color: white;
+  border: none;
+}
+
 .admin-table-card .card-header h4 {
   font-size: 1.35rem;
   font-weight: 600;

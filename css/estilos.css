@@ -449,7 +449,7 @@ a:focus {
   background: var(--steel-blue) !important;
 }
 
-.badge.bg-warning {
+.badge.bg-reservado {
   background: var(--rosy-taupe) !important;
   color: white !important;
 }

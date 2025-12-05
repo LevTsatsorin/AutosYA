@@ -1,5 +1,8 @@
 <?php
 
+// Establecer zona horaria
+date_default_timezone_set('America/Argentina/Buenos_Aires');
+
 // Configuración de conexión
 $host = "localhost";
 $usuario = "root";

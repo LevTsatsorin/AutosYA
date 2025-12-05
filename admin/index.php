@@ -249,6 +249,23 @@ include_once("../components/header.php");
 
     <div class="row mt-4">
         <div class="col-12">
+            <div class="card shadow-lg admin-table-card admin-table-card-reservas">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="bi bi-calendar-check-fill"></i> Gestión de Reservas
+                    </h4>
+                    <div class="card-header-actions">
+                        <a href="gestion_reservas.php" class="btn btn-light admin-action-btn">
+                            <i class="bi bi-list-ul"></i> <span>Ver Listado</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
             <div class="card shadow-lg admin-table-card admin-table-card-usuarios">
                 <div class="card-header">
                     <h4 class="mb-0">

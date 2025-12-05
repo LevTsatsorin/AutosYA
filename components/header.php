@@ -63,6 +63,11 @@ $current_dir = basename(dirname($_SERVER['PHP_SELF']));
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link <?php echo ($current_page === 'gestion_reservas.php') ? 'active' : ''; ?>" href="/AutosYA/admin/gestion_reservas.php">
+                                <i class="bi bi-calendar-check-fill"></i> Gestión de Reservas
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link <?php echo ($current_page === 'gestion_usuarios.php') ? 'active' : ''; ?>" href="/AutosYA/admin/gestion_usuarios.php">
                                 <i class="bi bi-people-fill"></i> Gestión de Usuarios
                             </a>
@@ -75,7 +80,7 @@ $current_dir = basename(dirname($_SERVER['PHP_SELF']));
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php echo ($current_page === 'mis_reservas.php') ? 'active' : ''; ?>" href="/AutosYA/pages/mis_reservas.php">
+                            <a class="nav-link <?php echo ($current_page === 'mis_reservas.php') ? 'active' : ''; ?>" href="/AutosYA/cliente/mis_reservas.php">
                                 <i class="bi bi-calendar-check-fill"></i> Mis Reservas
                             </a>
                         </li>

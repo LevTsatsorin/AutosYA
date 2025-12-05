@@ -138,10 +138,13 @@ include_once("../components/header.php");
     <div class="row">
         <div class="col-12">
             <div class="card shadow reservas-card">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-3">
                     <h4 class="mb-0">
                         <i class="bi bi-calendar-event"></i> Mis Últimas Reservas
                     </h4>
+                    <a href="mis_reservas.php" class="btn btn-primary btn-sm">
+                        <i class="bi bi-calendar-check"></i> <span>Ver Todas Mis Reservas</span>
+                    </a>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -170,7 +173,13 @@ include_once("../components/header.php");
 
                                 if ($resultado->num_rows > 0) {
                                     while ($fila = $resultado->fetch_assoc()) {
-                                        $badge_class = $fila['estado'] === 'confirmada' ? 'bg-success' : ($fila['estado'] === 'pendiente' ? 'bg-warning text-dark' : ($fila['estado'] === 'completada' ? 'bg-info' : 'bg-danger'));
+                                        $badge_class = match ($fila['estado']) {
+                                            'confirmada' => 'bg-success',
+                                            'pendiente' => 'bg-warning text-dark',
+                                            'completada' => 'bg-info',
+                                            'cancelada' => 'bg-danger',
+                                            default => 'bg-secondary'
+                                        };
 
                                         $precio = $fila['precio_total'] ? '$' . number_format($fila['precio_total'], 2) : '-';
 
@@ -194,14 +203,6 @@ include_once("../components/header.php");
                             </tbody>
                         </table>
                     </div>
-
-                    <?php if ($resultado->num_rows > 0): ?>
-                        <div class="text-center p-3">
-                            <a href="../pages/mis_reservas.php" class="btn btn-outline-primary">
-                                Ver Todas Mis Reservas <i class="bi bi-arrow-right"></i>
-                            </a>
-                        </div>
-                    <?php endif; ?>
                 </div>
             </div>
         </div>
