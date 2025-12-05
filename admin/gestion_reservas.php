@@ -205,6 +205,7 @@ include_once("../components/header.php");
                                             echo '<form action="abm_reservas/mod_reserva_estado.php" method="POST">
                                                     <input type="hidden" name="id_reserva" value="' . $fila['id_reserva'] . '">
                                                     <input type="hidden" name="nuevo_estado" value="confirmada">
+                                                    <input type="hidden" name="pagina" value="' . $pagina_actual . '">
                                                     <button type="submit" class="btn btn-success text-white w-100">
                                                         <i class="bi bi-check-circle"></i> Confirmar
                                                     </button>
@@ -215,6 +216,7 @@ include_once("../components/header.php");
                                             echo '<form action="abm_reservas/mod_reserva_estado.php" method="POST">
                                                     <input type="hidden" name="id_reserva" value="' . $fila['id_reserva'] . '">
                                                     <input type="hidden" name="nuevo_estado" value="cancelada">
+                                                    <input type="hidden" name="pagina" value="' . $pagina_actual . '">
                                                     <button type="submit" class="btn btn-warning text-white w-100">
                                                         <i class="bi bi-x-circle"></i> Cancelar
                                                     </button>
@@ -225,6 +227,7 @@ include_once("../components/header.php");
                                             echo '<form action="abm_reservas/mod_reserva_estado.php" method="POST">
                                                     <input type="hidden" name="id_reserva" value="' . $fila['id_reserva'] . '">
                                                     <input type="hidden" name="nuevo_estado" value="completada">
+                                                    <input type="hidden" name="pagina" value="' . $pagina_actual . '">
                                                     <button type="submit" class="btn btn-info text-white w-100">
                                                         <i class="bi bi-check2-all"></i> Completar
                                                     </button>
@@ -283,7 +286,7 @@ include_once("../components/header.php");
                     <?php if ($total_paginas > 1): ?>
                         <div class="d-flex justify-content-between align-items-center mt-3 px-3 pb-3">
                             <div class="text-muted">
-                                Mostrando <?php echo min($offset + 1, $total_registros); ?> - <?php echo min($offset + $registros_por_pagina, $total_registros); ?> de <?php echo $total_registros; ?> reservas
+                                Mostrando <?php echo min($offset + 1, $total_reservas); ?> - <?php echo min($offset + $registros_por_pagina, $total_reservas); ?> de <?php echo $total_reservas; ?> reservas
                             </div>
                             <nav aria-label="Paginación">
                                 <ul class="pagination mb-0">

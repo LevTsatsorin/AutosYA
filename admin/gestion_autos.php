@@ -96,7 +96,12 @@ include_once("../components/header.php");
 
                                 if ($resultado->num_rows > 0) {
                                     while ($fila = $resultado->fetch_assoc()) {
-                                        $badge_class = $fila['estado'] === 'disponible' ? 'bg-success' : ($fila['estado'] === 'reservado' ? 'bg-reservado' : 'bg-secondary');
+                                        $badge_class = match ($fila['estado']) {
+                                            'disponible' => 'bg-success',
+                                            'reservado' => 'bg-reservado',
+                                            'mantenimiento' => 'bg-warning text-dark',
+                                            default => 'bg-secondary'
+                                        };
 
                                         echo '<tr>
                                             <td>' . $fila['id_auto'] . '</td>
