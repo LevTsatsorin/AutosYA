@@ -47,6 +47,16 @@ $stmt->close();
             <h1 class="admin-page-title mb-4">
                 <i class="bi bi-person-gear"></i> Modificar Usuario
             </h1>
+
+            <?php
+            // Mostrar mensaje de éxito
+            if (isset($_GET['mod']) && $_GET['mod'] === 'ok') {
+                echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="bi bi-check-circle"></i> Usuario modificado exitosamente.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                  </div>';
+            }
+            ?>
         </div>
     </div>
 
@@ -72,7 +82,11 @@ $stmt->close();
                         <div class="mb-3">
                             <label for="correo" class="form-label">Correo *</label>
                             <input type="email" class="form-control" id="correo" name="correo"
-                                value="<?php echo htmlspecialchars($usuario['correo']); ?>" required>
+                                value="<?php echo htmlspecialchars($usuario['correo']); ?>"
+                                <?php echo ($id_usuario !== $_SESSION['id_usuario']) ? 'disabled' : ''; ?> required>
+                            <?php if ($id_usuario !== $_SESSION['id_usuario']): ?>
+                                <input type="hidden" name="correo" value="<?php echo htmlspecialchars($usuario['correo']); ?>">
+                            <?php endif; ?>
                         </div>
 
                         <div class="mb-3">
