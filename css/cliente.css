@@ -1,0 +1,301 @@
+/* Tarjeta de información del usuario */
+.user-info-card {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.user-info-card::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  right: -10px;
+  width: 180px;
+  height: 180px;
+  background-image: url("/AutosYA/assets/sport_car.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.user-info-card .stats-title {
+  color: #667eea !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.user-info-card .stats-icon-circle {
+  background-color: rgba(102, 126, 234, 0.2) !important;
+}
+
+.user-info-card .stats-icon-circle i {
+  color: #667eea !important;
+}
+
+.user-card-title {
+  color: #667eea;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+.user-info-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  padding: 0.85rem;
+  margin: 0.4rem 0;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: #4a5568;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+
+.user-info-item i {
+  font-size: 1.2rem;
+  color: #667eea;
+}
+
+/* Tarjetas de estadísticas con gradientes */
+.stats-card-purple {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.stats-card-blue {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+.stats-icon-circle {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+}
+
+.stats-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.stats-number {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .stats-number {
+    font-size: 3rem;
+  }
+}
+
+/* Tabla de reservas */
+.reservas-card .card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+}
+
+.reservas-card .card-header h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.reservas-card thead th {
+  border: none;
+  padding: 1rem;
+  font-weight: 600;
+  background-color: #f8f9fa;
+}
+
+.reservas-card tbody td {
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+.reservas-card .table-hover tbody tr:hover {
+  background-color: transparent !important;
+  cursor: default;
+}
+
+.reservas-card .table-hover tbody tr:hover td {
+  border-color: inherit !important;
+}
+
+.reservas-card .btn-sm {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.reservas-card .btn-sm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.reservas-card.card:hover {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+  border-color: rgba(40, 83, 107, 0.1) !important;
+}
+
+.reserva-resumen.card:hover,
+.container .card.shadow-lg:hover {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+  border-color: rgba(40, 83, 107, 0.1) !important;
+}
+
+.reserva-resumen {
+  position: sticky;
+  top: 100px;
+}
+
+.reserva-resumen .card-header {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+input[type="date"] {
+  position: relative;
+  cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  background: url("/AutosYA/assets/icons/calendar.svg") center no-repeat;
+  padding: 0.25rem;
+}
+
+/* Indicadores de disponibilidad */
+#disponibilidadMsg {
+  font-weight: 500 !important;
+  border-radius: 10px !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: auto !important;
+  min-height: 20px !important;
+  padding: 0.75rem 1.25rem !important;
+}
+
+#disponibilidadMsg.d-none {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+#disponibilidadMsg.alert-danger {
+  background: linear-gradient(
+    135deg,
+    rgba(220, 38, 38, 0.1) 0%,
+    rgba(239, 68, 68, 0.1) 100%
+  );
+  border-left: 4px solid var(--rosy-taupe);
+  color: #991b1b;
+}
+
+.reserva-resumen .text-success {
+  color: #11998e !important;
+}
+
+.reserva-resumen hr {
+  border-top: 2px solid rgba(17, 153, 142, 0.2);
+  margin: 1rem 0;
+}
+
+.reserva-resumen .card-header,
+.card .card-header.bg-primary {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+/* Badges de estado */
+.badge {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+#submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Modal z-index */
+.modal {
+  z-index: 1055 !important;
+}
+
+.modal-backdrop {
+  z-index: 1050 !important;
+}
+
+@media (max-width: 991px) {
+  .reserva-resumen {
+    position: static;
+    margin-top: 1.5rem;
+  }
+}
+
+#reservasMesContainer {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#reservasMesContainer .alert-info {
+  border-left: 4px solid #0dcaf0;
+}
+
+#reservasMesContainer .bg-white {
+  transition: all 0.2s ease;
+}
+
+#reservasMesContainer .bg-white:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 575px) {
+  .reservas-card .card-header {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .reservas-card .card-header h4 {
+    margin-bottom: 0.75rem !important;
+    text-align: center;
+  }
+
+  .reservas-card .card-header .btn {
+    width: 100%;
+  }
+}
