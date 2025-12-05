@@ -210,7 +210,7 @@ include_once("../components/header.php");
                         <div class="stats-icon-circle me-3">
                             <i class="bi bi-people"></i>
                         </div>
-                        <h5 class="card-title mb-0">Total Usuarios</h5>
+                        <h5 class="card-title mb-0">Total Clientes</h5>
                     </div>
                     <h2 class="card-text">
                         <?php

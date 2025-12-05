@@ -113,6 +113,24 @@ if ($result->num_rows === 0) {
 $auto = $result->fetch_assoc();
 $stmt->close();
 
+// Obtener reservas existentes para este auto
+$stmt = $con->prepare("
+    SELECT fecha_inicio, fecha_fin, estado 
+    FROM reservas 
+    WHERE fk_auto = ? 
+    AND estado IN ('pendiente', 'confirmada')
+    AND fecha_fin >= CURDATE()
+    ORDER BY fecha_inicio ASC
+");
+$stmt->bind_param("i", $id_auto);
+$stmt->execute();
+$result_reservas = $stmt->get_result();
+$reservas_existentes = [];
+while ($reserva = $result_reservas->fetch_assoc()) {
+    $reservas_existentes[] = $reserva;
+}
+$stmt->close();
+
 include_once("../../components/header.php");
 ?>
 <link rel="stylesheet" href="/AutosYA/css/cliente.css">
@@ -179,6 +197,9 @@ include_once("../../components/header.php");
                     </div>
 
                     <hr class="my-4">
+
+
+                    <div id="reservasMesContainer" class="d-none mb-4"></div>
 
                     <form action="alta_reserva.php" method="POST" class="needs-validation" id="reservaForm" novalidate>
                         <input type="hidden" name="id_auto" value="<?php echo $auto['id_auto']; ?>">
@@ -251,7 +272,9 @@ include_once("../../components/header.php");
 <script>
     const precioPorDia = <?php echo $auto['precio_por_dia']; ?>;
     const idAuto = <?php echo $auto['id_auto']; ?>;
+    const reservasExistentes = <?php echo json_encode($reservas_existentes); ?>;
 </script>
+<script src="/AutosYA/js/reserva-periodos.js"></script>
 <script src="/AutosYA/js/reserva-validation.js"></script>
 
 <?php include_once("../../components/footer.php"); ?>

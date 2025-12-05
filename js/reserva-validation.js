@@ -11,10 +11,35 @@
   const totalDias = document.getElementById("total_dias");
   const precioTotal = document.getElementById("precio_total");
 
-  let verificacionTimeout = null;
   let fechasValidas = false;
 
   const MS_POR_DIA = 1000 * 60 * 60 * 24;
+
+  // Verificar si las fechas se superponen con reservas existentes
+  function verificarSuperposicion(inicio, fin) {
+    if (
+      typeof reservasExistentes === "undefined" ||
+      !reservasExistentes.length
+    ) {
+      return null;
+    }
+
+    const inicioSeleccionado = new Date(inicio + "T00:00:00");
+    const finSeleccionado = new Date(fin + "T00:00:00");
+
+    for (const reserva of reservasExistentes) {
+      const inicioReserva = new Date(reserva.fecha_inicio + "T00:00:00");
+      const finReserva = new Date(reserva.fecha_fin + "T00:00:00");
+
+      if (
+        !(finSeleccionado < inicioReserva || inicioSeleccionado > finReserva)
+      ) {
+        return reserva;
+      }
+    }
+
+    return null;
+  }
 
   // Validar fechas y verificar disponibilidad
   function validarYVerificar() {
@@ -65,6 +90,23 @@
       return;
     }
 
+    // Verificar superposición con reservas existentes
+    const conflicto = verificarSuperposicion(inicio, fin);
+    if (conflicto) {
+      const fechaInicioConflicto = new Date(
+        conflicto.fecha_inicio + "T00:00:00"
+      ).toLocaleDateString("es-AR");
+      const fechaFinConflicto = new Date(
+        conflicto.fecha_fin + "T00:00:00"
+      ).toLocaleDateString("es-AR");
+      disponibilidadMsg.innerHTML = `<i class="bi bi-x-circle"></i> <strong>Fechas no disponibles.</strong> Este auto ya está reservado del <strong>${fechaInicioConflicto}</strong> al <strong>${fechaFinConflicto}</strong>. Por favor, elige otras fechas.`;
+      disponibilidadMsg.classList.remove("d-none", "alert-success");
+      disponibilidadMsg.classList.add("alert-danger");
+      totalDias.textContent = "-";
+      precioTotal.textContent = "0.00";
+      return;
+    }
+
     // Calcular días
     const diffTime = Math.abs(dateFin - dateInicio);
     const diffDays = Math.ceil(diffTime / MS_POR_DIA);
@@ -74,54 +116,11 @@
     const total = diffDays * precioPorDia;
     precioTotal.textContent = total.toFixed(2);
 
-    // Debounce
-    clearTimeout(verificacionTimeout);
-    verificacionTimeout = setTimeout(() => {
-      verificarDisponibilidad(inicio, fin);
-    }, 500);
-  }
-
-  // Verificar disponibilidad via AJAX
-  function verificarDisponibilidad(inicio, fin) {
-    let url = `/AutosYA/cliente/abm_reservas/verificar_disponibilidad.php?auto=${idAuto}&fecha_inicio=${inicio}&fecha_fin=${fin}`;
-
-    if (idReserva) {
-      url += `&reserva_id=${idReserva}`;
-    }
-
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.error) {
-          disponibilidadMsg.innerHTML =
-            '<i class="bi bi-exclamation-triangle"></i> ' + data.error;
-          disponibilidadMsg.classList.remove("d-none", "alert-success");
-          disponibilidadMsg.classList.add("alert-danger");
-          fechasValidas = false;
-          submitBtn.disabled = true;
-        } else if (data.disponible) {
-          disponibilidadMsg.classList.add("d-none");
-          disponibilidadMsg.classList.remove("alert-danger", "alert-success");
-          fechasValidas = true;
-          submitBtn.disabled = false;
-        } else {
-          disponibilidadMsg.innerHTML =
-            '<i class="bi bi-x-circle"></i> ' + data.mensaje;
-          disponibilidadMsg.classList.remove("d-none", "alert-success");
-          disponibilidadMsg.classList.add("alert-danger");
-          fechasValidas = false;
-          submitBtn.disabled = true;
-        }
-      })
-      .catch((error) => {
-        console.error("Error al verificar disponibilidad:", error);
-        disponibilidadMsg.innerHTML =
-          '<i class="bi bi-exclamation-triangle"></i> Error al verificar disponibilidad. Por favor, intenta de nuevo.';
-        disponibilidadMsg.classList.remove("d-none", "alert-success");
-        disponibilidadMsg.classList.add("alert-danger");
-        fechasValidas = false;
-        submitBtn.disabled = true;
-      });
+    // Si llegamos aquí, las fechas son válidas
+    disponibilidadMsg.classList.add("d-none");
+    disponibilidadMsg.classList.remove("alert-danger", "alert-success");
+    fechasValidas = true;
+    submitBtn.disabled = false;
   }
 
   // Event listeners

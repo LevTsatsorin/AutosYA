@@ -30,9 +30,26 @@ include_once("../components/header.php");
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                   </div>';
             }
+            if (isset($_GET['estado_actualizado'])) {
+                $estado = $_GET['estado_actualizado'];
+                $mensajes = [
+                    'confirmada' => 'Reserva confirmada exitosamente',
+                    'cancelada' => 'Reserva cancelada exitosamente',
+                    'completada' => 'Reserva marcada como completada'
+                ];
+                if (isset($mensajes[$estado])) {
+                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="bi bi-check-circle"></i> ' . $mensajes[$estado] . '
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                      </div>';
+                }
+            }
             if (isset($_GET['error'])) {
                 $error_msg = [
                     'reserva_no_encontrada' => 'No se encontró la reserva',
+                    'estado_invalido' => 'Estado de reserva inválido',
+                    'mismo_estado' => 'La reserva ya tiene ese estado',
+                    'solo_confirmadas_completar' => 'Solo las reservas confirmadas pueden completarse',
                     'db_error' => 'Error al procesar la solicitud'
                 ];
                 $error = $_GET['error'];
@@ -141,6 +158,16 @@ include_once("../components/header.php");
                                             <td>' . $precio . '</td>
                                             <td><span class="badge ' . $badge_class . '">' . ucfirst($fila['estado']) . '</span></td>
                                             <td class="text-center">
+                                                <div class="d-flex gap-1 justify-content-center">';
+
+
+                                        echo '<button type="button" 
+                                                   class="btn btn-sm btn-primary" 
+                                                   data-bs-toggle="modal" 
+                                                   data-bs-target="#gestionarReservaModal' . $fila['id_reserva'] . '"
+                                                   title="Gestionar">
+                                                    <i class="bi bi-gear"></i>
+                                                </button>
                                                 <button type="button" 
                                                    class="btn btn-sm btn-danger" 
                                                    data-bs-toggle="modal" 
@@ -148,9 +175,72 @@ include_once("../components/header.php");
                                                    title="Eliminar">
                                                     <i class="bi bi-trash"></i>
                                                 </button>
+                                            </div>
                                             </td>
                                           </tr>';
 
+                                        // Modal para gestionar estado de la reserva
+                                        echo '
+                                        <div class="modal fade" id="gestionarReservaModal' . $fila['id_reserva'] . '" tabindex="-1" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-primary text-white">
+                                                        <h5 class="modal-title">
+                                                            <i class="bi bi-gear"></i> Gestionar Reserva
+                                                        </h5>
+                                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="mb-3"><strong>Estado actual:</strong> <span class="badge ' . $badge_class . '">' . ucfirst($fila['estado']) . '</span></p>
+                                                        <p class="mb-1"><strong>Cliente:</strong> ' . htmlspecialchars($fila['cliente_nombre']) . '</p>
+                                                        <p class="mb-1"><strong>Auto:</strong> ' . htmlspecialchars($fila['marca']) . ' ' . htmlspecialchars($fila['modelo']) . '</p>
+                                                        <p class="mb-1"><strong>Período:</strong> ' . date('d/m/Y', strtotime($fila['fecha_inicio'])) . ' - ' . date('d/m/Y', strtotime($fila['fecha_fin'])) . '</p>
+                                                        <p class="mb-3"><strong>Total:</strong> ' . $precio . '</p>
+                                                        
+                                                        <h6 class="mb-2">Cambiar estado a:</h6>
+                                                        <div class="d-grid gap-2">';
+
+
+                                        if ($fila['estado'] !== 'confirmada') {
+                                            echo '<form action="abm_reservas/mod_reserva_estado.php" method="POST">
+                                                    <input type="hidden" name="id_reserva" value="' . $fila['id_reserva'] . '">
+                                                    <input type="hidden" name="nuevo_estado" value="confirmada">
+                                                    <button type="submit" class="btn btn-success text-white w-100">
+                                                        <i class="bi bi-check-circle"></i> Confirmar
+                                                    </button>
+                                                </form>';
+                                        }
+
+                                        if ($fila['estado'] !== 'cancelada') {
+                                            echo '<form action="abm_reservas/mod_reserva_estado.php" method="POST">
+                                                    <input type="hidden" name="id_reserva" value="' . $fila['id_reserva'] . '">
+                                                    <input type="hidden" name="nuevo_estado" value="cancelada">
+                                                    <button type="submit" class="btn btn-warning text-white w-100">
+                                                        <i class="bi bi-x-circle"></i> Cancelar
+                                                    </button>
+                                                </form>';
+                                        }
+
+                                        if ($fila['estado'] === 'confirmada') {
+                                            echo '<form action="abm_reservas/mod_reserva_estado.php" method="POST">
+                                                    <input type="hidden" name="id_reserva" value="' . $fila['id_reserva'] . '">
+                                                    <input type="hidden" name="nuevo_estado" value="completada">
+                                                    <button type="submit" class="btn btn-info text-white w-100">
+                                                        <i class="bi bi-check2-all"></i> Completar
+                                                    </button>
+                                                </form>';
+                                        }
+
+                                        echo '</div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>';
+
+                                        // Modal de eliminación
                                         echo '
                                         <div class="modal fade" id="eliminarReservaModal' . $fila['id_reserva'] . '" tabindex="-1" aria-hidden="true">
                                             <div class="modal-dialog">

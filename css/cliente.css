@@ -256,6 +256,34 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 }
 
+#reservasMesContainer {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#reservasMesContainer .alert-info {
+  border-left: 4px solid #0dcaf0;
+}
+
+#reservasMesContainer .bg-white {
+  transition: all 0.2s ease;
+}
+
+#reservasMesContainer .bg-white:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
 @media (max-width: 575px) {
   .reservas-card .card-header {
     flex-direction: column !important;
