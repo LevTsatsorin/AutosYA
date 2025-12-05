@@ -127,9 +127,20 @@ INSERT INTO `roles` (`id_rol`, `nombre`) VALUES (2, 'cliente');
 -- Initial Data: Usuarios
 -- -----------------------------------------------------
 INSERT INTO `usuarios` (`id_usuario`, `nombre`, `correo`, `clave`, `fk_rol`, `created_at`) VALUES
-(1, 'Lev Tsatsorin', 'lev.tsatsorin@gmail.com', '$2y$10$gwiw6O.sssBcUKN8rnVm5.El8/8YQkK41OG2SMvof4YuygTVGRhBG', 2, '2025-11-30 20:26:56'),
-(2, 'Admin', 'admin@autosya.com', '$2y$10$OhSVHndiztL2BTf/TFMTRuUWinRQNtnRtvHGrTIUnnBm1uOJmNQdO', 1, '2025-11-30 20:32:09'),
-(3, 'Test Lev', 'lev@test.com', '$2y$10$9Eq5Q4g5HxQFnhiKbjHXfui3VGiCDjL8DIx5xEXIxDYXC26t2YO9i', 2, '2025-12-02 17:30:46');
+(2, 'Admin Pro', 'admin@autosya.com', '$2y$10$dkUqN4SL/ZCjlMgTbqRVCeG89777gnVUrLjHY4zIVaxrYyskjrYRm', 1, '2025-11-30 23:32:09'),
+(3, 'Lev Tsatsorin', 'lev@test.com', '$2y$10$9Eq5Q4g5HxQFnhiKbjHXfui3VGiCDjL8DIx5xEXIxDYXC26t2YO9i', 2, '2025-12-02 20:30:46'),
+(4, 'Mateo', 'mateo.gonzalez@gmail.com', '$2y$10$eQrZ47qpAgJvDszz9CPX3.J8HLRaotcds1XfZFSbpXcOA3O2T1/LK', 2, '2025-12-05 02:05:06'),
+(5, 'Lucia', 'lucia.martinez@gmail.com', '$2y$10$LK36aU9ajg8CBUwQnvXd1ecs42s3XR2RlxWqlT5m0CQEgN4SPW9T.', 2, '2025-12-05 02:05:36'),
+(6, 'Valentin', 'valentin.ruiz@gmail.com', '$2y$10$F45gF4ywGR9PTdGhBTYoueIoyq5Xai0wUdCFNPQ4T/L2/67jTw7mO', 2, '2025-12-05 02:05:59'),
+(7, 'Camila', 'camila.fernandez@gmail.com', '$2y$10$ZsoEp54A6E1cz.XtIEzw.OaX0DaOJ2yFJkMGo.yR13.oDfh7jxUr2', 2, '2025-12-05 02:06:26'),
+(8, 'Santiago', 'santi.rodriguez@gmail.com', '$2y$10$xrESWByRf6CFWyzCY1d/EOtRva6xvbZMFPQRnUGs/TzEHWaJi7X62', 2, '2025-12-05 02:06:49'),
+(9, 'Martina', 'martina.romero@gmail.com', '$2y$10$uJHXQ1QUofDHuq1BDH1Wcu.I1Tt4vSUNBEYSpWo7Nfos8/1lr1s7i', 2, '2025-12-05 02:07:07'),
+(10, 'Julian', 'julian.silva@gmail.com', '$2y$10$8J11IeYVLtU3MvN2R9I5z.kGTYBSML7xqpLf.aesgHIqenByt9BBO', 2, '2025-12-05 02:07:25'),
+(11, 'Abril', 'abril.morales@gmail.com', '$2y$10$przktLFsw3yJXxbLr0YDp.gFMpgF44Qs9nCqOoBVt32.bTH27Vnzy', 1, '2025-12-05 02:07:40'),
+(12, 'Thiago', 'thiago.alvarez@gmail.com', '$2y$10$6X0rkBJWBO3iGd/cATCax.fFy6CpnfUWaOHhbnGIP/V.YBjzjL65i', 2, '2025-12-05 02:07:56'),
+(13, 'Mia', 'mia.torres@gmail.com', '$2y$10$6igmA7rufHR8OwS2h1ei2utLTT4k7QtjtrhxL0fUd5R1LKanJpYbC', 2, '2025-12-05 02:08:12'),
+(14, 'Benjamin', 'benja.flores@gmail.com', '$2y$10$RdWyXyoq7LcuzykEjMWc1.DXsNwIPn6YUtzvvBrdAZ932.65u9SsK', 2, '2025-12-05 02:08:31'),
+(15, 'Isabella', 'isa.peralta@gmail.com', '$2y$10$4qWES/XSd5liyMuGvnXd0Or2CinIyAn1wXgpsddvd4SlsHPLYQyA2', 2, '2025-12-05 02:08:46');
 
 -- -----------------------------------------------------
 -- Initial Data: Autos
@@ -149,15 +160,15 @@ INSERT INTO `autos` (`id_auto`, `marca`, `modelo`, `anio`, `patente`, `precio_po
 (12, 'Kia', 'Rio', 2021, 'AM927PL', 40.00, 'disponible', '1764811069.png', '2025-12-04 00:46:21'),
 (13, 'Jeep', 'Renegade', 2023, 'AN452MD', 55.00, 'disponible', '1764810989.avif', '2025-12-04 00:46:21'),
 (14, 'Toyota', 'Hilux', 2019, 'AP774GH', 60.00, 'disponible', '1764810943.png', '2025-12-04 00:46:21'),
-(15, 'Volkswagen', 'Amarok', 2020, 'AQ210VR', 62.00, 'disponible', '1764810899.webp', '2025-12-04 00:46:21'),
+(15, 'Volkswagen', 'Amarok', 2020, 'AQ210VR', 62.00, 'reservado', '1764810899.webp', '2025-12-04 00:46:21'),
 (16, 'Ford', 'Ranger', 2022, 'AR892TF', 64.00, 'disponible', '1764810772.png', '2025-12-04 00:46:21'),
-(17, 'Chevrolet', 'Tracker', 2023, 'AS531QP', 50.00, 'disponible', '1764810731.png', '2025-12-04 00:46:21'),
+(17, 'Chevrolet', 'Tracker', 2023, 'AS531QP', 50.00, 'mantenimiento', '1764810731.png', '2025-12-04 00:46:21'),
 (18, 'Renault', 'Duster', 2021, 'AT667WR', 47.50, 'disponible', '1764810601.webp', '2025-12-04 00:46:21'),
 (19, 'Honda', 'Civic', 2018, 'AU115LO', 43.00, 'disponible', '1764810561.avif', '2025-12-04 00:46:21'),
 (20, 'Hyundai', 'Tucson', 2022, 'AV803QP', 58.00, 'disponible', '1764810456.webp', '2025-12-04 00:46:21'),
-(22, 'Kia', 'Sportage', 2023, 'AW390KS', 59.50, 'disponible', '1764810490.png', '2025-12-04 00:50:11'),
+(22, 'Kia', 'Sportage', 2023, 'AW390KS', 59.50, 'mantenimiento', '1764810490.png', '2025-12-04 00:50:11'),
 (23, 'Mazda', '3', 2020, 'AX128JP', 44.00, 'disponible', '1764810400.webp', '2025-12-04 02:23:35'),
-(24, 'Subaru', 'Forester', 2021, 'AY332LM', 63.00, 'disponible', '1764810311.png', '2025-12-04 02:23:35'),
+(24, 'Subaru', 'Forester', 2021, 'AY332LM', 63.00, 'reservado', '1764810311.png', '2025-12-04 02:23:35'),
 (25, 'BMW', 'X1', 2019, 'AZ901TR', 75.00, 'disponible', '1764810270.avif', '2025-12-04 02:23:35'),
 (26, 'Mercedes-Benz', 'A200', 2022, 'BA557KM', 85.00, 'disponible', '1764810223.avif', '2025-12-04 02:23:35'),
 (27, 'Audi', 'A3', 2021, 'BB442FG', 82.00, 'disponible', '1764810175.png', '2025-12-04 02:23:35'),
@@ -167,15 +178,60 @@ INSERT INTO `autos` (`id_auto`, `marca`, `modelo`, `anio`, `patente`, `precio_po
 (31, 'Peugeot', '3008', 2022, 'BF611WR', 67.00, 'disponible', '1764809932.avif', '2025-12-04 02:23:35'),
 (32, 'Chevrolet', 'S10', 2019, 'BG221MD', 58.50, 'disponible', '1764809895.jpg', '2025-12-04 02:23:35'),
 (33, 'Hyundai', 'Elantra', 2020, 'BH556UY', 39.00, 'disponible', '1764809683.png', '2025-12-04 02:23:35'),
-(34, 'Kia', 'Cerato', 2019, 'BJ909KS', 38.00, 'disponible', '1764809577.png', '2025-12-04 02:23:35'),
+(34, 'Kia', 'Cerato', 2019, 'BJ909KS', 38.00, 'mantenimiento', '1764809577.png', '2025-12-04 02:23:35'),
 (35, 'Nissan', 'Kicks', 2022, 'BK345PL', 48.00, 'disponible', '1764809482.webp', '2025-12-04 02:23:35'),
 (36, 'Fiat', 'Argo', 2023, 'BL782VF', 33.00, 'disponible', '1764809354.png', '2025-12-04 02:23:35'),
-(37, 'Chery', 'Tiggo 4', 2021, 'BM664PP', 47.00, 'disponible', '1764809287.avif', '2025-12-04 02:23:35'),
+(37, 'Chery', 'Tiggo 4', 2021, 'BM664PP', 47.00, 'reservado', '1764809287.avif', '2025-12-04 02:23:35'),
 (38, 'Geely', 'Coolray', 2023, 'BN117GF', 49.00, 'disponible', '1764809245.jpg', '2025-12-04 02:23:35'),
 (39, 'Haval', 'Jolion', 2022, 'BP882QK', 51.00, 'disponible', '1764808810.png', '2025-12-04 02:23:35'),
 (40, 'Ford', 'EcoSport', 2018, 'BQ774DS', 34.00, 'disponible', '1764808557.webp', '2025-12-04 02:23:35'),
 (41, 'Renault', 'Sandero Stepway', 2019, 'BR335LT', 32.00, 'disponible', '1764806861.png', '2025-12-04 02:23:35'),
-(42, 'Mitsubishi', 'Outlander', 2021, 'BS901FM', 66.00, 'disponible', '1764806960.webp', '2025-12-04 02:23:35');
+(42, 'Mitsubishi', 'Outlander', 2021, 'BS901FM', 66.00, 'reservado', '1764806960.webp', '2025-12-04 02:23:35');
+
+-- -----------------------------------------------------
+-- Initial Data: Reservas
+-- -----------------------------------------------------
+INSERT INTO `reservas` (`id_reserva`, `fk_usuario`, `fk_auto`, `fecha_inicio`, `fecha_fin`, `estado`, `precio_total`, `created_at`) VALUES
+(3, 3, 42, '2025-12-19', '2025-12-26', 'cancelada', 462.00, '2025-12-05 00:20:56'),
+(4, 3, 42, '2025-12-04', '2025-12-18', 'confirmada', 858.00, '2025-12-05 01:16:17'),
+(5, 3, 42, '2025-12-27', '2026-01-15', 'confirmada', 1254.00, '2025-12-05 01:25:40'),
+(6, 3, 41, '2025-12-19', '2025-12-25', 'confirmada', 192.00, '2025-12-05 01:50:22'),
+(7, 4, 36, '2025-12-25', '2025-12-30', 'pendiente', 165.00, '2025-12-05 02:10:11'),
+(8, 4, 30, '2025-12-17', '2025-12-20', 'pendiente', 156.00, '2025-12-05 02:10:23'),
+(9, 5, 14, '2025-12-11', '2026-01-24', 'pendiente', 2640.00, '2025-12-05 02:11:04'),
+(10, 5, 13, '2026-02-12', '2026-02-27', 'cancelada', 825.00, '2025-12-05 02:11:33'),
+(11, 5, 13, '2026-02-18', '2026-02-25', 'pendiente', 385.00, '2025-12-05 02:12:04'),
+(12, 6, 31, '2025-12-06', '2025-12-17', 'confirmada', 737.00, '2025-12-05 02:12:37'),
+(13, 6, 31, '2025-12-19', '2025-12-24', 'pendiente', 335.00, '2025-12-05 02:12:59'),
+(14, 6, 2, '2026-05-14', '2026-05-31', 'confirmada', 765.00, '2025-12-05 02:13:17'),
+(15, 8, 41, '2025-12-28', '2025-12-31', 'pendiente', 96.00, '2025-12-05 02:13:50'),
+(16, 8, 29, '2026-01-02', '2026-01-07', 'cancelada', 350.00, '2025-12-05 02:14:05'),
+(17, 8, 16, '2026-01-08', '2026-01-11', 'confirmada', 192.00, '2025-12-05 02:14:21'),
+(18, 8, 38, '2026-01-02', '2026-01-07', 'cancelada', 245.00, '2025-12-05 02:14:43'),
+(19, 8, 27, '2026-01-28', '2026-02-05', 'pendiente', 656.00, '2025-12-05 02:15:02'),
+(20, 8, 25, '2025-12-19', '2025-12-22', 'cancelada', 225.00, '2025-12-05 02:15:13'),
+(21, 9, 4, '2026-01-01', '2026-03-31', 'confirmada', 3426.50, '2025-12-05 02:15:46'),
+(22, 10, 36, '2025-12-06', '2025-12-07', 'confirmada', 33.00, '2025-12-05 02:16:18'),
+(23, 10, 36, '2025-12-13', '2025-12-14', 'confirmada', 33.00, '2025-12-05 02:16:29'),
+(24, 10, 36, '2025-12-20', '2025-12-21', 'cancelada', 33.00, '2025-12-05 02:16:40'),
+(25, 10, 33, '2026-01-01', '2026-01-04', 'confirmada', 117.00, '2025-12-05 02:16:53'),
+(26, 12, 26, '2025-12-18', '2025-12-30', 'confirmada', 1020.00, '2025-12-05 02:17:24'),
+(27, 12, 1, '2026-02-01', '2026-02-14', 'pendiente', 845.00, '2025-12-05 02:17:45'),
+(28, 13, 18, '2025-12-27', '2025-12-31', 'pendiente', 190.00, '2025-12-05 02:18:07'),
+(29, 13, 7, '2026-02-20', '2026-02-26', 'cancelada', 288.00, '2025-12-05 02:18:19'),
+(30, 13, 6, '2026-03-19', '2026-03-28', 'pendiente', 333.00, '2025-12-05 02:18:35'),
+(31, 13, 10, '2026-02-18', '2026-02-27', 'pendiente', 351.00, '2025-12-05 02:19:00'),
+(32, 14, 39, '2025-12-19', '2025-12-24', 'pendiente', 255.00, '2025-12-05 02:19:22'),
+(33, 14, 39, '2025-12-26', '2025-12-31', 'confirmada', 255.00, '2025-12-05 02:19:31'),
+(34, 14, 32, '2026-01-22', '2026-01-29', 'pendiente', 409.50, '2025-12-05 02:19:42'),
+(35, 14, 27, '2026-03-10', '2026-03-29', 'confirmada', 1558.00, '2025-12-05 02:19:52'),
+(36, 15, 14, '2026-01-26', '2026-01-31', 'cancelada', 300.00, '2025-12-05 02:20:35'),
+(37, 15, 13, '2025-12-19', '2025-12-31', 'confirmada', 660.00, '2025-12-05 02:20:53'),
+(38, 15, 2, '2026-01-18', '2026-01-21', 'pendiente', 135.00, '2025-12-05 02:21:06'),
+(39, 15, 29, '2026-02-08', '2026-02-11', 'pendiente', 210.00, '2025-12-05 02:21:18'),
+(40, 15, 20, '2025-12-11', '2025-12-19', 'cancelada', 464.00, '2025-12-05 02:21:28'),
+(41, 15, 20, '2025-12-10', '2025-12-15', 'confirmada', 290.00, '2025-12-05 02:21:46'),
+(42, 15, 28, '2026-01-01', '2026-01-05', 'confirmada', 224.00, '2025-12-05 02:22:01');
 
 SHOW WARNINGS;
 
