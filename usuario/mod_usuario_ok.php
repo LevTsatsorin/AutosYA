@@ -59,6 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($redirect_param === 'admin_gestion') {
             $redirect = '/AutosYA/admin/gestion_usuarios.php?mod=ok';
+        } elseif (empty($redirect_param) && $id_usuario === $_SESSION['id_usuario']) {
+            $redirect = '/AutosYA/usuario/mod_usuario.php?id=' . $id_usuario . '&mod=ok';
         } else {
             $redirect = $_SESSION['fk_rol'] == 1 ? '/AutosYA/admin/index.php?mod=ok' : '/AutosYA/cliente/perfil.php?mod=ok';
         }
